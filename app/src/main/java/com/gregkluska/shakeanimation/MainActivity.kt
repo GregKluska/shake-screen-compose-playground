@@ -48,40 +48,7 @@ class MainActivity : ComponentActivity() {
                             coroutineScope.launch {
                                 offset.animateTo(
                                     targetValue = Offset(0F, 0F),
-                                    animationSpec = keyframes {
-                                        durationMillis = 820
-                                        //.36,.07,.19,.97
-                                        val m = 2f
-                                        val easing = CubicBezierEasing(0.36f, 0.07f, 0.19f, 0.97f)
-                                        Offset(
-                                            1F * m,
-                                            1F * m
-                                        ) at durationMillis / 10 * 1 with easing
-                                        Offset(
-                                            -1F * m,
-                                            -2F * m
-                                        ) at durationMillis / 10 * 2 with easing
-                                        Offset(
-                                            -3F * m,
-                                            0F * m
-                                        ) at durationMillis / 10 * 3 with easing
-                                        Offset(
-                                            3F * m,
-                                            2F * m
-                                        ) at durationMillis / 10 * 4 with easing
-                                        Offset(
-                                            1F * m,
-                                            -1F * m
-                                        ) at durationMillis / 10 * 5 with easing
-                                        Offset(
-                                            -1F * m,
-                                            2F * m
-                                        ) at durationMillis / 10 * 6 with easing
-                                        Offset(
-                                            -3F * m,
-                                            1F * m
-                                        ) at durationMillis / 10 * 7 with easing
-                                    }
+                                    animationSpec = shakeKeyframes
                                 )
                             }
 
@@ -95,9 +62,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-val offsetToVector: TwoWayConverter<Offset, AnimationVector2D> =
-    TwoWayConverter({ AnimationVector2D(it.x, it.y) },
-        { Offset(it.v1, it.v2) })
-
-fun Animatable(initialValue: Offset): Animatable<Offset, AnimationVector2D> =
-    Animatable(initialValue, offsetToVector)
